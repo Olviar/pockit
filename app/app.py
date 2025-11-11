@@ -1,6 +1,7 @@
 import os
 from databricks import sql
 from databricks.sdk.core import Config
+from PIL import Image
 import streamlit as st
 import pandas as pd
 
@@ -21,6 +22,10 @@ def sqlQuery(query: str) -> pd.DataFrame:
             return cursor.fetchall_arrow().to_pandas()
 
 st.set_page_config(layout="wide")
+
+# Add Pockit logo at the top
+logo = Image.open("pockit_logo_full.png")
+st.image(logo, width=300)
 
 @st.cache_data(ttl=30)  # only re-query if it's been 30 seconds
 def getData():
